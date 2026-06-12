@@ -1,17 +1,15 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 using OrderProcessor.Application.Contracts.Repositories;
 
 namespace OrderProcessor.Infrastructure.Persistence
 {
     public sealed class InventoryRepository : IInventoryRepository
     {
-        private readonly string _connectionString;
-        public InventoryRepository(IConfiguration configuration)
+        private readonly IDbConnectionFactory _connectionFactory;
+        public InventoryRepository(IDbConnectionFactory connectionFactory)
         {
-            _connectionString =
-                configuration.GetConnectionString("OrderHub")!;
+            _connectionFactory = connectionFactory;
         }
         public async Task<int> GetStockAsync(
             string sku,
@@ -24,7 +22,7 @@ namespace OrderProcessor.Infrastructure.Persistence
             """;
 
             await using var connection =
-                new SqlConnection(_connectionString);
+                (SqlConnection)_connectionFactory.CreateConnection();
 
             return await connection.QuerySingleAsync<int>(
                 new CommandDefinition(

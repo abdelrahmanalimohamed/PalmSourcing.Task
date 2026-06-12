@@ -1,15 +1,12 @@
 ﻿using Dapper;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Data.SqlClient;
 using OrderProcessor.Application.Contracts.Repositories;
 using OrderProcessor.Domain.Enums;
-using Microsoft.Data.SqlClient;
 
 namespace OrderProcessor.Infrastructure.Persistence
 {
     public sealed class SchoolRepository : ISchoolRepository
     {
-        private readonly string _connectionString;
-
         private static readonly Dictionary<string, SchoolTier>
             TierMap = new(StringComparer.OrdinalIgnoreCase)
             {
@@ -17,14 +14,11 @@ namespace OrderProcessor.Infrastructure.Persistence
                 ["SILVER"] = SchoolTier.Silver
             };
 
-        public SchoolRepository(IConfiguration configuration)
+        private readonly IDbConnectionFactory _connectionFactory;
+        public SchoolRepository(IDbConnectionFactory connectionFactory)
         {
-            _connectionString =
-                configuration.GetConnectionString("OrderHub")
-                ?? throw new InvalidOperationException(
-                    "Connection string missing.");
+            _connectionFactory = connectionFactory;
         }
-
         public async Task<SchoolTier?> GetTierAsync(
             int schoolId,
             CancellationToken ct)
@@ -36,7 +30,7 @@ namespace OrderProcessor.Infrastructure.Persistence
             """;
 
             await using var connection =
-                new SqlConnection(_connectionString);
+                (SqlConnection)_connectionFactory.CreateConnection();
 
             var tierCode = await connection.QuerySingleOrDefaultAsync<string>(
                     new CommandDefinition(

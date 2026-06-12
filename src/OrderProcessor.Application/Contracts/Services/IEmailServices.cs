@@ -1,6 +1,6 @@
 ﻿namespace OrderProcessor.Application.Contracts.Services
 {
-    public interface IEmailService
+    public interface IEmailServices
     {
         Task SendConfirmationAsync(
                string email,

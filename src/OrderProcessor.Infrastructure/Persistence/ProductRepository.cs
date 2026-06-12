@@ -1,19 +1,16 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 using OrderProcessor.Application.Contracts.Repositories;
 
 namespace OrderProcessor.Infrastructure.Persistence
 {
     public sealed class ProductRepository : IProductRepository
     {
-        private readonly string _connectionString;
-        public ProductRepository(IConfiguration configuration)
+        private readonly IDbConnectionFactory _connectionFactory;
+        public ProductRepository(IDbConnectionFactory connectionFactory)
         {
-            _connectionString =
-                configuration.GetConnectionString("OrderHub")!;
+            _connectionFactory = connectionFactory;
         }
-
         public async Task<decimal> GetBasePriceAsync(
             string sku,
             CancellationToken ct)
@@ -25,7 +22,7 @@ namespace OrderProcessor.Infrastructure.Persistence
             """;
 
             await using var connection =
-                new SqlConnection(_connectionString);
+                (SqlConnection)_connectionFactory.CreateConnection();
 
             return await connection.QuerySingleAsync<decimal>(
                 new CommandDefinition(
