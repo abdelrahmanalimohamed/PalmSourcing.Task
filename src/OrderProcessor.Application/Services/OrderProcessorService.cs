@@ -11,7 +11,6 @@ namespace OrderProcessor.Application.Services
 {
     public class OrderProcessorService : IOrderProcessor
     {
-        // Semaphore caps concurrent per-line DB/service calls under peak load.
         // 10 means at most 10 lines are fetched in parallel at any moment.
         private const int MaxConcurrentLines = 10;
 
