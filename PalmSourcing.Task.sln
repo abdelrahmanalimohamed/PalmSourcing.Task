@@ -15,6 +15,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5957F046-9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderProcessor.Application.Tests", "test\OrderProcessor.Application.Tests\OrderProcessor.Application.Tests.csproj", "{D2AE942A-D0F6-43C9-9433-10785A7C6DFD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pages", "pages", "{B69684F9-2DBC-4081-B803-182778486FCD}"
+	ProjectSection(SolutionItems) = preProject
+		pages\ConfirmOrder.cshtml = pages\ConfirmOrder.cshtml
+		pages\ConfirmOrder.cshtml.cs = pages\ConfirmOrder.cshtml.cs
+		pages\Razor-Page-Triage.md = pages\Razor-Page-Triage.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "js", "js", "{EE629910-7E14-43A4-B532-9AA158477BBD}"
+	ProjectSection(SolutionItems) = preProject
+		pages\js\confirm-order.js = pages\js\confirm-order.js
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +58,7 @@ Global
 		{8D0AFADA-D0DC-4810-AD12-4C0191221C08} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{CCE3BD2F-0B2A-B897-CAC5-CFACA679E330} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{D2AE942A-D0F6-43C9-9433-10785A7C6DFD} = {5957F046-90B5-4BD8-8EED-88CB845010BD}
+		{EE629910-7E14-43A4-B532-9AA158477BBD} = {B69684F9-2DBC-4081-B803-182778486FCD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {768DA1A1-4BDF-4C52-89F4-340964DEECB9}

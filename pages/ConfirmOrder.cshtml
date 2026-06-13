@@ -1,0 +1,54 @@
+@page
+@model ConfirmOrderModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Order for @Model.SchoolName</h1>
+
+<form method="post" id="order-form">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">SKU</th>
+                <th scope="col">Embroidery</th>
+                <th scope="col">Qty</th>
+                <th scope="col">Unit Price</th>
+                <th scope="col">Line Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.Lines)
+            {
+                <tr>
+                    <td>@line.Sku</td>
+                    <td>@line.Embroidery</td>
+                    <td>
+                        <input
+                            type="number"
+                            name="qty_@line.Id"
+                            value="@line.Quantity"
+                            min="0"
+                            class="qty-input"
+                            data-unit-price="@line.UnitPrice"
+                            aria-label="Quantity for @line.Sku"
+                        />
+                    </td>
+                    <td>£@line.UnitPrice.ToString("0.00")</td>
+                    <td class="line-total">
+                        £@((line.UnitPrice * line.Quantity).ToString("0.00"))
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p>
+        Subtotal:
+        <strong id="subtotal">£@Model.Subtotal.ToString("0.00")</strong>
+    </p>
+
+    <button type="submit">Confirm</button>
+</form>
+
+@section Scripts {
+    <script src="~/js/confirm-order.js" defer></script>
+}
