@@ -91,3 +91,14 @@ This could produce:
 ```
 
 and enforce server-side validation.
+
+## Rewrite the page targeting .NET 8 Razor Pages with a clean split between server-rendered structure and client interaction.
+For brevity, the PageModel assumes an existing
+IOrderService.
+
+Business rules remain in the Application layer.
+The Razor Page acts only as an orchestration layer
+between the UI and application services.
+
+## When a school admin changes a line quantity, the subtotal updates without a page reload.
+File exist in js folder as confirm-order.js
