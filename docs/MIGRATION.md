@@ -1,6 +1,6 @@
 ## Objective
 
-Migrate the legacy `OrderProcessor` from the existing .NET Framework 4.7 WebForms application to a modern .NET 8 implementation without downtime and without breaking existing consumers (Razor Pages, ASMX services, and other integrations).
+Migrate the legacy `OrderProcessor` from the existing .NET Framework 4.7 WebForms application to a modern .NET 8 implementation without downtime and without breaking existing consumers (Razor Pages, ASMX services).
 
 ## Approach
 
